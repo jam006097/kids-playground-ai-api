@@ -654,6 +654,41 @@ mkdir kids-playground-ai-api
 cd kids-playground-ai-api
 ```
 
+- [x] **中タスク0.2: Git管理の開始と初期コミット**
+    - **担当:** 人間
+    - **内容:** プロジェクトのGit管理を開始し、`.gitignore`を設定して不要なファイルを管理対象から除外し、初期コミットを行います。
+    - **指示:** プロジェクトルートディレクトリで以下のコマンドを実行してください。
+    ```bash
+git init
+# .gitignore ファイルを作成または編集し、適切な内容を記述
+# 例:
+# echo "__pycache__\nvenv/\.env" > .gitignore
+git add .
+git commit -m "Initial commit"
+```
+
+- [ ] **中タスク0.3: GitHubリポジトリの作成と連携**
+    - **担当:** 人間
+    - **内容:** GitHub上に新しいリポジトリを作成し、ローカルリポジトリと連携させます。
+    - **指示:**
+        1. GitHubにログインし、新しいリポジトリを作成します（リポジトリ名は `kids-playground-ai-api` など）。READMEや.gitignore、ライセンスの追加はスキップしてください。
+        2. 作成されたリポジトリページに表示される指示に従い、ローカルリポジトリをリモートにプッシュします。
+        ```bash
+git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPOSITORY_NAME.git
+git branch -M main
+git push -u origin main
+```
+
+- [ ] **中タスク0.4: Hugging Faceアカウントの登録とSpacesの準備**
+    - **担当:** 人間
+    - **内容:** Hugging Faceアカウントを登録し、AIモデルをデプロイするためのHugging Face Spaceを準備します。
+    - **指示:**
+        1. Hugging Faceのウェブサイト (huggingface.co) にアクセスし、アカウントを登録します。
+        2. ログイン後、「Spaces」セクションに移動し、「Create new Space」をクリックします。
+        3. Space名、ライセンス、SDK（Gradioを選択）、公開/非公開設定などを適切に設定し、Spaceを作成します。
+        4. 作成後、Spaceの設定ページで「Link to a Git repository」オプションを探し、先ほど作成したGitHubリポジトリと連携させます。これにより、GitHubへのプッシュで自動デプロイが可能になります。
+
+
 ### フェーズ1: 開発環境のセットアップ
 
 **目的:** コーディングを開始する前に、品質を担保し、開発を効率化するための基盤を構築する。
