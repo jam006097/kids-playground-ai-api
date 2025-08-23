@@ -680,13 +680,18 @@ git push -u origin main
 ```
 
 - [x] **中タスク0.4: Hugging Faceアカウントの登録とSpacesの準備**
-    - **担当:** 人間
-    - **内容:** Hugging Faceアカウントを登録し、AIモデルをデプロイするためのHugging Face Spaceを準備します。
-    - **指示:**
+    - [x] **担当:** 人間
+    - [x] **内容:** Hugging Faceアカウントを登録し、AIモデルをデプロイするためのHugging Face Spaceを準備します。
+    - [x] **指示:**
         1. Hugging Faceのウェブサイト (huggingface.co) にアクセスし、アカウントを登録します。
         2. ログイン後、「Spaces」セクションに移動し、「Create new Space」をクリックします。
         3. Space名、ライセンス、SDK（Gradioを選択）、公開/非公開設定などを適切に設定し、Spaceを作成します。
         4. 作成後、Spaceの設定ページで「Link to a Git repository」オプションを探し、先ほど作成したGitHubリポジトリと連携させます。これにより、GitHubへのプッシュで自動デプロイが可能になります。
+
+- [x] **中タスク0.5: ライセンスファイルの作成**
+    - **担当:** AI
+    - **内容:** プロジェクトのライセンスファイルを`LICENSE`という名前で作成します。
+    - **指示:** プロジェクトのルートディレクトリに`LICENSE`ファイルを作成し、適切なライセンス（例: MIT License）の内容を記述してください。
 
 
 ### フェーズ1: 開発環境のセットアップ
@@ -717,7 +722,11 @@ touch .gitignore Dockerfile pyproject.toml requirements.txt README.md .github/wo
     - [x] **小タスク1.2.1: `pyproject.toml` の設定**
         - **担当:** AI
         - **内容:** セクション `9.10` の設計に基づき、Ruff, Mypy, Pytestの設定を記述した `pyproject.toml` ファイルを更新します。
-        - **指示:** `/home/jam/kidsPlayGround/pyproject.toml` を更新してください。
+        - **指示:** `/home/jam/kids-playground-ai-api/pyproject.toml` を更新してください。
+    - [x] **小タスク1.2.2: `pre-commit`フックの設定とインストール**
+        - **担当:** AI
+        - **内容:** `pre-commit`フックを設定し、Gitコミット時に自動でコードチェックが走るようにします。
+        - **指示:** `.pre-commit-config.yaml`を作成し、コンテナ内で`pre-commit install`を実行してください。
 
 - [x] **中タスク1.3: 依存関係の管理**
     - [x] **小タスク1.3.1: `requirements.txt` の設定**
@@ -748,6 +757,16 @@ mypy
 docker-compose up --build -d
             ```
             3. コンテナが正常に起動したら、Djangoアプリケーションは `http://localhost:8000`、AI API (Gradio) は `http://localhost:7860` でアクセス可能になります。
+
+- [x] **中タスク1.4: 環境変数設定ファイルの準備 (`.env`, `.env.example`)**
+    - **担当:** AI
+    - **内容:** 環境変数設定ファイル（`.env`）とそのテンプレート（`.env.example`）を作成します。
+    - **指示:** プロジェクトのルートディレクトリに`.env`ファイルと`.env.example`ファイルを作成してください。
+
+- [x] **中タスク1.4: 環境変数設定ファイルの準備 (`.env`, `.env.example`)**
+    - **担当:** AI
+    - **内容:** 環境変数設定ファイル（`.env`）とそのテンプレート（`.env.example`）を作成します。
+    - **指示:** プロジェクトのルートディレクトリに`.env`ファイルと`.env.example`ファイルを作成してください。
 
 ### フェーズ2: AIアプリケーションのTDD (コアロジック → API)
 
