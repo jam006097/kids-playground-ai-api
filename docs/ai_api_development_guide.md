@@ -667,7 +667,7 @@ git add .
 git commit -m "Initial commit"
 ```
 
-- [ ] **中タスク0.3: GitHubリポジトリの作成と連携**
+- [x] **中タスク0.3: GitHubリポジトリの作成と連携**
     - **担当:** 人間
     - **内容:** GitHub上に新しいリポジトリを作成し、ローカルリポジトリと連携させます。
     - **指示:**
@@ -679,7 +679,7 @@ git branch -M main
 git push -u origin main
 ```
 
-- [ ] **中タスク0.4: Hugging Faceアカウントの登録とSpacesの準備**
+- [x] **中タスク0.4: Hugging Faceアカウントの登録とSpacesの準備**
     - **担当:** 人間
     - **内容:** Hugging Faceアカウントを登録し、AIモデルをデプロイするためのHugging Face Spaceを準備します。
     - **指示:**
@@ -702,7 +702,7 @@ cp /path/to/current/ai_api_development_guide.md docs/ai_api_development_guide.md
 ```
     *   *注: `/path/to/current/ai_api_development_guide.md` は、このドキュメントが現在置かれている絶対パスに置き換える必要があります。*
 
-- [ ] **中タスク1.1: プロジェクト構造の初期セットアップ**
+- [x] **中タスク1.1: プロジェクト構造の初期セットアップ**
     - **担当:** AI
     - **内容:** 以下のディレクトリとファイルをプロジェクトルートに作成します。
         - ディレクトリ: `src/ai_api/core`, `tests/core`, `docs`, `.github/workflows`
@@ -713,14 +713,11 @@ mkdir -p src/ai_api/core tests/core docs .github/workflows
 touch .gitignore Dockerfile pyproject.toml requirements.txt README.md .github/workflows/ci.yml
 ```
 
-- [ ] **中タスク1.2: 品質管理ツールの設定**
+- [x] **中タスク1.2: 品質管理ツールの設定**
     - [ ] **小タスク1.2.1: `pyproject.toml` の設定**
         - **担当:** AI
         - **内容:** セクション `9.10` の設計に基づき、Ruff, Mypy, Pytestの設定を記述した `pyproject.toml` ファイルを更新します。
-        - **指示:** 以下の内容で `/home/jam/kidsPlayGround/pyproject.toml` を更新してください。
-        ```toml
-        # ... (pyproject.toml の内容をここに記述) ...
-        ```
+        - **指示:** `/home/jam/kidsPlayGround/pyproject.toml` を更新してください。
 
 - [ ] **中タスク1.3: 依存関係の管理**
     - [ ] **小タスク1.3.1: `requirements.txt` の設定**
