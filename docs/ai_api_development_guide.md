@@ -714,16 +714,16 @@ touch .gitignore Dockerfile pyproject.toml requirements.txt README.md .github/wo
 ```
 
 - [x] **中タスク1.2: 品質管理ツールの設定**
-    - [ ] **小タスク1.2.1: `pyproject.toml` の設定**
+    - [x] **小タスク1.2.1: `pyproject.toml` の設定**
         - **担当:** AI
         - **内容:** セクション `9.10` の設計に基づき、Ruff, Mypy, Pytestの設定を記述した `pyproject.toml` ファイルを更新します。
         - **指示:** `/home/jam/kidsPlayGround/pyproject.toml` を更新してください。
 
-- [ ] **中タスク1.3: 依存関係の管理**
-    - [ ] **小タスク1.3.1: `requirements.txt` の設定**
+- [x] **中タスク1.3: 依存関係の管理**
+    - [x] **小タスク1.3.1: `requirements.txt` の設定**
         - **担当:** AI
-        - **内容:** 以下のライブラリを記述した `requirements.txt` を更新します。
-        - **指示:** 以下の内容で `/home/jam/kidsPlayGround/requirements.txt` を更新してください。
+        - **内容:** ライブラリを記述した `requirements.txt` を更新します。
+        - **指示:**  `/home/jam/kidsPlayGround/requirements.txt` を更新してください。
         ```
 # AI App
 gradio
@@ -738,9 +738,16 @@ requests
 ruff
 mypy
           ```
-    - [ ] **小タスク1.3.2: 仮想環境の構築とインストール**
+    - [ ] **小タスク1.3.2: Docker開発環境の構築と起動**
         - **担当:** 人間
-        - **内容:** `python -m venv venv`, `source venv/bin/activate`, `pip install -r requirements.txt` を実行し、開発環境を準備します。
+        - **内容:** Docker Desktopを利用して、プロジェクトのDocker開発環境を構築し、起動します。これにより、必要な依存関係がコンテナ内に自動的にインストールされます。
+        - **指示:**
+            1. Docker Desktopがインストールされ、起動していることを確認してください。
+            2. プロジェクトのルートディレクトリで、以下のコマンドを実行してDockerコンテナをビルドし、バックグラウンドで起動します。
+            ```bash
+docker-compose up --build -d
+            ```
+            3. コンテナが正常に起動したら、Djangoアプリケーションは `http://localhost:8000`、AI API (Gradio) は `http://localhost:7860` でアクセス可能になります。
 
 ### フェーズ2: AIアプリケーションのTDD (コアロジック → API)
 
