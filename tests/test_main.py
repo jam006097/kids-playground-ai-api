@@ -1,5 +1,5 @@
-
 from src.ai_api.main import greet
+
 
 def test_greet():
     """
