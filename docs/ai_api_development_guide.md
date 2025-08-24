@@ -25,10 +25,10 @@
 
 ### 1.3. 技術選定理由
 
-- **Hugging Face Spaces:**
+- **Hugging Face Spaces:** 
     - **選定理由:** 無料枠が利用可能で、迅速なプロトタイピングに適しています。また、GitHubリポジトリと連携した自動デプロイ機能（CI/CD）が標準で提供されており、開発体験が非常にスムーズです。
     - **代替案との比較:** AWS LambdaやGoogle Cloud Functionsのようなサーバーレス環境も考えられますが、これらはコンテナイメージのサイズ制限が厳しく、大規模なAIモデルのデプロイには追加の工夫が必要です。Hugging Face Inference APIは最も手軽ですが、カスタムロジックの追加やUIの提供ができないため、今回はGradioと組み合わせられるSpacesを選択しました。
-- **Gradio:**
+- **Gradio:** 
     - **選定理由:** 数行のコードでAIモデルのデモUIとAPIエンドポイントを同時に作成できるため、開発速度を大幅に向上させます。特に、動作確認用のUIが自動で生成される点は、開発初期段階での実験やデバッグにおいて大きな利点となります。
 
 ### 1.4. アーキテクチャ図
@@ -537,7 +537,7 @@ sequenceDiagram
         - `python src/ai_api/main.py` を実行すれば、Djangoとは無関係に単体で起動できます。
         - 起動したAIアプリに対し、ブラウザでUIを操作したり、`curl`コマンドでAPIを直接叩いたりすることで、単体での動作テストが可能です。
     - **Djangoアプリケーション:** 
-        - `SummarizeReviewsView` のテストを書く際、`unittest.mock.patch` を使って `_call_api` メソッドをモック（偽のオブジェクトに差し替え）します。
+        - `SummarizeReviewsView` のテストを書く際、`unittest.mock.patch` を使って `_call_summary_api` メソッドをモック（偽のオブジェクトに差し替え）します。
         - これにより、AI APIへ実際にネットワーク通信を発生させることなく、「APIが成功を返した場合」「タイムアウトした場合」「エラーを返した場合」など、あらゆる状況を想定したビューのロジックを高速にテストできます。
 
 この設計により、両アプリケーションは互いに依存することなく、独立して開発,テスト,デプロイを進めることが可能になります。
@@ -556,7 +556,7 @@ sequenceDiagram
 
 ##### 設定案 (`[tool.ruff]`セクション)
 - `line-length = 88`: 1行の最大長を`black`に合わせて88文字に設定。
-- `select = ["E", "W", "F", "I", "B", "UP"]`:
+- `select = ["E", "W", "F", "I", "B", "UP"]`: 
     - `E`, `W`, `F`: `pycodestyle`と`Pyflakes`の基本的なエラー・警告（必須）。
     - `I`: `isort`互換のimport文の自動ソート（必須）。
     - `B`: `flake8-bugbear`の、バグの温床となりやすいコードパターンを検出するルール。
@@ -765,18 +765,23 @@ docker-compose up --build -d
     - **内容:** 環境変数設定ファイル（`.env`）とそのテンプレート（`.env.example`）を作成します。
     - **指示:** プロジェクトのルートディレクトリに`.env`ファイルと`.env.example`ファイルを作成してください。
 
+- [x] **中タスク1.5: VSCodeとDockerコンテナの連携 (Dev Containers)**
+    - [x] **小タスク1.5.1: 「Dev Containers」拡張機能のインストール (人間):** VSCodeに`ms-vscode-remote.remote-containers`拡張機能をインストールする。
+    - [x] **小タスク1.5.2: `devcontainer.json`設定ファイルの作成 (AI):** プロジェクトルートに`.devcontainer`ディレクトリと、`docker-compose.yml`の`api`サービスに接続するための`devcontainer.json`ファイルを作成する。
+    - [x] **小タスク1.5.3: コンテナ内での再オープン (人間):** VSCodeのコマンドパレットから「Reopen in Container」を実行し、VSCodeがコンテナに接続された状態で再起動することを確認する。
+
 ### フェーズ2: CI/CD検証用サンプルアプリケーションの作成
 
 **目的:** CI/CDパイプラインが全体として機能することを検証するための、最もシンプルな「Hello World」的なGradioアプリケーションを作成する。
 
-- [ ] **中タスク2.1: Gradioサンプルコードの実装**
-    - [ ] **小タスク2.1.1 (RED):** `main.py`のテストを作成
+- [x] **中タスク2.1: Gradioサンプルコードの実装**
+    - [x] **小タスク2.1.1 (RED):** `main.py`のテストを作成
         - **担当:** AI
         - **内容:** `tests/test_main.py`を作成し、`main.py`の`greet`関数が特定の文字列を返すことを期待するテストを記述します。この時点では`main.py`や`greet`関数が存在しないため、テストは失敗します。
-    - [ ] **小タスク2.1.2 (GREEN):** `main.py`にサンプルを実装
+    - [x] **小タスク2.1.2 (GREEN):** `main.py`にサンプルを実装
         - **担当:** AI
         - **内容:** `src/ai_api/main.py`に、簡単な`greet`関数と、それを呼び出すGradioインターフェースを実装し、テストをパスさせます。
-    - [ ] **小タスク2.1.3 (REFACTOR):** リファクタリング
+    - [x] **小タスク2.1.3 (REFACTOR):** リファクタリング
         - **担当:** AI
         - **内容:** コードを整理し、可読性を高めます。
 
@@ -784,18 +789,18 @@ docker-compose up --build -d
 
 **目的:** コードの品質を自動的に検証し、Hugging Face Spacesへ自動的にデプロイする仕組みを構築する。
 
-- [ ] **中タスク3.1: CIワークフローの構築 (GitHub Actions)**
-    - [ ] **小タスク3.1.1 (RED):** CI設定ファイルの骨格作成
+- [x] **中タスク3.1: CIワークフローの構築 (GitHub Actions)**
+    - [x] **小タスク3.1.1 (RED):** CI設定ファイルの骨格作成
         - **担当:** AI
         - **内容:** `.github/workflows/ci.yml` を作成します。最初はトリガーだけを記述し、具体的なジョブは空にしておきます。この時点では何も実行されません。
-    - [ ] **小タスク3.1.2 (GREEN):** CIジョブの実装
+    - [x] **小タスク3.1.2 (GREEN):** CIジョブの実装
         - **担当:** AI
         - **内容:** `ci.yml` に、Pythonのセットアップ、依存関係のインストール、`ruff`によるlintチェック、`mypy`による型チェック、`pytest`によるテスト実行のステップを追加します。
         - **指示:** `/home/jam/kids-playground-ai-api/.github/workflows/ci.yml` を更新してください。
-    - [ ] **小タスク3.1.3 (REFACTOR):** ワークフローの最適化
+    - [x] **小タスク3.1.3 (REFACTOR):** ワークフローの最適化
         - **担当:** AI
         - **内容:** キャッシュ機構などを導入し、CIの実行時間を短縮します。
-    - [ ] **小タスク3.1.4: CIの動作確認**
+    - [x] **小タスク3.1.4: CIの動作確認**
         - **担当:** 人間
         - **内容:** この変更をGitHubにプッシュし、GitHubの「Actions」タブでワークフローが正しく実行され、全てのチェックが成功することを確認します。
 
@@ -820,7 +825,7 @@ docker-compose up --build -d
 - [ ] **中タスク4.1: AIコアロジック `Summarizer` の実装**
     - [ ] **小タスク4.1.1 (RED):** `Summarizer`クラスのテスト作成
         - **担当:** AI
-        - **内容:** `tests/core/test_inference.py` を作成し、「`from src.ai_api.core.inference import Summarizer` が成功すること」をテストします。このテストは、ファイルやクラスが存在しないため失敗します。
+        - **内容:** `tests/core/test_inference.py` を作成し、「`from ai_api.core.inference import Summarizer` が成功すること」をテストします。このテストは、ファイルやクラスが存在しないため失敗します。
     - [ ] **小タスク4.1.2 (GREEN):** `Summarizer`クラスの骨格作成
         - **担当:** AI
         - **内容:** `src/ai_api/core/inference.py` と、空の`Summarizer`クラスを作成し、テストをパスさせます。
