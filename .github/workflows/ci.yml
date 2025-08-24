@@ -37,7 +37,7 @@ jobs:
           ruff format --check .
 
       - name: Type check with Mypy
-        run: mypy src/ai_api tests
+        run: mypy -p ai_api -p tests
 
       - name: Test with pytest
-        run: pytest
+        run: PYTHONPATH=src pytest
