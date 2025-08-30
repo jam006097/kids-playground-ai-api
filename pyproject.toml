@@ -20,4 +20,3 @@ explicit_package_bases = true
 testpaths = ["tests"]
 addopts = "-ra --strict-markers"
 minversion = "7.0"
-

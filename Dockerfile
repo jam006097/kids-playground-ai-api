@@ -10,6 +10,10 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
+# PYTHONPATHにsrcディレクトリを追加し、モジュールを正しく見つけられるようにする
+ENV PYTHONPATH "${PYTHONPATH}:/app/src"
+
 EXPOSE 7860
 
-CMD ["python", "src/ai_api/main.py"]
+# アプリケーションをモジュールとして実行する
+CMD ["python", "-m", "ai_api.main"]

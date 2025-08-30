@@ -5,5 +5,5 @@ from dataclasses import dataclass
 class ModelConfig:
     """使用するAIモデルに関する情報を一元管理します。"""
 
-    NAME: str = "llm-jp/t5-small-japanese-finetuned-sum"
+    NAME: str = "tsmatz/mt5_summarize_japanese"
     REVISION: str = "main"

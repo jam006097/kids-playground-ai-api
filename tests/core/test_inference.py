@@ -7,7 +7,7 @@ def test_summarizer_initialization_with_test_model() -> None:
     テスト用の軽量モデルでSummarizerが初期化できることをテストする。
     """
     # Arrange: テスト専用の軽量モデルを指定
-    config = ModelConfig(NAME="sshleifer/distilbart-cnn-6-6", REVISION="main")
+    config = ModelConfig(NAME="megagonlabs/t5-base-japanese-web", REVISION="main")
 
     # Act: 実際にモデルをロードして初期化
     summarizer = Summarizer(config=config)
@@ -21,7 +21,7 @@ def test_summarize_with_test_model() -> None:
     テスト用の軽量モデルでsummarizeメソッドが動作することをテストする。
     """
     # Arrange: テスト専用の軽量モデルを指定
-    config = ModelConfig(NAME="sshleifer/distilbart-cnn-6-6", REVISION="main")
+    config = ModelConfig(NAME="megagonlabs/t5-base-japanese-web", REVISION="main")
     summarizer = Summarizer(config=config)
     text = "This is a test sentence. It is a very nice sentence to summarize."
 
