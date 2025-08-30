@@ -5,7 +5,7 @@ colorFrom: blue
 colorTo: green
 sdk: gradio
 sdk_version: "4.44.1"
-command: PYTHONPATH=src python -m ai_api.main
+app_file: app.py
 pinned: false
 ---
 
