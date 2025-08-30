@@ -1,3 +1,14 @@
+---
+title: kids-playground-ai-api
+emoji: 🤖
+colorFrom: blue
+colorTo: green
+sdk: gradio
+sdk_version: "4.44.1"
+app_file: src/ai_api/main.py
+pinned: false
+---
+
 # kids-playground-ai-api
 
 ## 概要
