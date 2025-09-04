@@ -31,6 +31,18 @@ GitHub ActionsからHugging Face Spacesにアクセスするために、アク�
 *   「New repository secret」をクリックし、**Name**を `HF_TOKEN`、**Secret**にコピーしたトークンを貼り付けて登録します。
     *   **`genemicli`との連携:** `genemicli`は、この`HF_TOKEN`の登録方法を丁寧に案内してくれました。
 
+### 4.5. アプリケーション用Secretsの登録 (Hugging Face Spaces側)
+
+`HF_TOKEN`はGitHub Actionsがデプロイを行うために必要なトークンですが、デプロイされた**アプリケーション自体**が実行時に必要とする機密情報（APIキーやパスワードなど）は、Hugging Face Spaces側で設定する必要があります。
+
+今回のプロジェクトでは、APIを保護するための`GRADIO_PASSWORD`が必要です。
+
+*   Hugging Face Spaceの「Settings」ページに移動します。
+*   「Variables and Secrets」セクションで、「New secret」をクリックします。
+*   **Name**を `GRADIO_PASSWORD`、**Value**に設定したいパスワードを入力して登録します。
+
+これにより、アプリケーションは安全にパスワードを読み込んで認証を有効にすることができます。
+
 ### 5. GitHub Actionsワークフローの作成
 
 GitHubリポジトリのルートに `.github/workflows/sync-to-space.yml` というファイルを作成し、以下の内容を記述します。このワークフローは、GitHubの`main`ブランチへのプッシュをトリガーにして、Spaceのコンテンツを自動で更新します。

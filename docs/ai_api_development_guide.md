@@ -205,16 +205,17 @@ AI新機能の開発においては、以下のコーディング規約と開発
 
 ### 7.1. API認証
 
-**課題:** Hugging Face Spacesで公開されるAPIは、デフォルトでは誰でもアクセス可能な状態になります。意図しない利用や攻撃を防ぐため、Djangoアプリケーションからのみリクエストを受け付けるように制御する必要があります。
+**課題:** Hugging Face Spacesで公開されるAPIは、デフォルトでは誰でもアクセス可能な状態になります。意図しない利用や攻撃を防ぐため、認証を導入する必要があります。
 
-**対策:** APIキーによる認証を導入します。
-1.  **APIキーの生成:** UUIDなどで推測困難な文字列をAPIキーとして生成します。
-2.  **Secretsへの登録:** 生成したキーを、DjangoとGradio APIの両方の環境変数（Hugging Face SpacesのSecrets）として登録します。
-    - `AI_API_KEY`: Gradio側でリクエストを検証するためのキー
-    - `DJANGO_AI_API_KEY`: Djangoがリクエスト時に送信するキー
+**対策:** Gradioが標準で提供するパスワード認証機能を利用します。
+1.  **認証情報の設定:**
+    - `GRADIO_PASSWORD`: APIを保護するためのパスワードを環境変数で設定します。
+2.  **Secretsへの登録:**
+    - **APIサーバー側 (Hugging Face):** `GRADIO_PASSWORD`の値を、Hugging Face SpacesのSecretsに登録します。
+    - **クライアント側 (Renderなど):** 同じパスワードを、クライアントアプリケーションの環境変数 `AI_SUMMARY_API_KEY` として登録します。
 3.  **認証の実装:**
-    - **Django側:** APIを呼び出す際、HTTPヘッダー（例: `Authorization: Bearer <APIキー>`）にAPIキーを含めて送信します。
-    - **Gradio側:** FastAPIの依存性注入（`Depends`）などを利用して、リクエストヘッダーをチェックする認証関数を定義します。APIキーが一致しない場合は、HTTP 401または403エラーを返却します。
+    - **Gradio側:** `iface.launch(auth=(username, password))` の形式で認証を有効にします。ユーザー名は現在 `gemini` で固定されており、パスワードは環境変数から読み込まれます。
+    - **クライアント側:** `gradio_client`を利用する際、`auth=("gemini", api_key)` のように認証情報を渡してAPIを呼び出します。
 
 ### 7.2. その他の対策
 
