@@ -34,6 +34,3 @@ iface = gr.Interface(
     description="入力されたテキスト（口コミ）をAIが分析し、要約を生成します。",
     api_name="predict",
 )
-
-if __name__ == "__main__":
-    iface.launch(server_name="0.0.0.0")
